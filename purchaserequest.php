@@ -274,7 +274,6 @@ if (isset($_POST['submit'])) {
                                     ?>
 
 
-                                    <select name="state" required="required" value="<?php echo $vendorname; ?>">
                                     </select>
                                 </select>
 

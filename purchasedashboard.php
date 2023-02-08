@@ -104,7 +104,7 @@ include('./include/config.php');
            
            ?>
 
-            <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+            <div class="h-full ml-14 mt-20 mb-20 md:ml-64 m">
                 <!-- Client Table -->
                 <div class="mt-4 mx-4">
                     <div class="w-full overflow-hidden rounded-lg shadow-xs">
@@ -185,9 +185,6 @@ include('./include/config.php');
                         ?>
 
                                     <tr class="bg-white border-b hover:bg-gray-50 ">
-
-
-
                                         <th scope="row" class="py-4 px-2 font-medium text-gray-900 whitespace-nowrap ">
                                             <?php echo htmlentities($row['id']); ?>
                                         </th>

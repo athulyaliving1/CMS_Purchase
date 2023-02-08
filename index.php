@@ -200,7 +200,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </form>
                     <div class="pt-5 text-center text-gray-400 text-xs">
                         <span>
-                            Athulya Senior Care @ Copyright © 2023
+                            Athulya Senior Care @ Copyright © 2023 v1.0
                     </div>
                 </div>
             </div>

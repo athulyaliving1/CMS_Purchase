@@ -270,7 +270,7 @@ if (isset($_POST["submit"])) {
                                 <div>
 
                                     <label for="myFile" class="block mb-2 text-sm font-medium text-gray-900 ">
-                                        File Upload
+                                        File Upload (upload unique filename)
                                     </label>
                                     <input type="file" for="file" id="file" name="file" accept=".pdf" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 " placeholder="123-45-678" required>
 

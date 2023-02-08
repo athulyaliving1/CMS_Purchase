@@ -9,7 +9,13 @@ include('./include/config.php');
 //     die("Connection failed: " . mysqli_connect_error());
 // } else {
 //     echo "Connection successful";
-// 
+// }
+
+
+
+
+
+
 
 ?>
 <!DOCTYPE html>
@@ -66,9 +72,9 @@ include('./include/config.php');
         <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white  text-black ">
 
             <?php
-            include('./include/purchasesidebar.php');
-
-            ?>
+       include('./include/purchasesidebar.php');
+           
+           ?>
 
             <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
 
@@ -81,80 +87,46 @@ include('./include/config.php');
                                 <thead>
                                     <tr
                                         class="text-xs font-semibold tracking-wide text-left text-gray-800 uppercase border-b  bg-gray-50 ">
-                                        <!-- <th class="px-4 py-3">Id </th> -->
-                                        <th class="px-4 py-3">Unique</th>
+                                        <th class="px-4 py-3">Id </th>
+                                        <th class="px-4 py-3">unique </th>
                                         <th class="px-4 py-3">Name<i class="baseline-near_me"></i></th>
                                         <th class="px-4 py-3">State</th>
                                         <th class="px-4 py-3">Location</th>
                                         <th class="px-4 py-3">Department</th>
                                         <th class="px-4 py-3">Place</th>
                                         <th class="px-4 py-3">Product</th>
-                                        <th class="px-6 py-3">Price</th>
+                                        <th class="px-4 py-3">Price</th>
                                         <th class="px-4 py-3">Qty</th>
                                         <th class="px-4 py-3">Vendor</th>
                                         <th class="px-4 py-3">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php
 
+                        ?>
 
 
                                     <?php
-                                    $limit = 15;
+                        $selectQuery = "SELECT * FROM purchaserequest ";
+                        $sql = mysqli_query($conn, $selectQuery);
+                        $count = mysqli_num_rows($sql);
 
-                                    // query to retrieve all rows from the table Countries
-
-                                    $getQuery = "SELECT * FROM purchaserequest  ";
-
-
-                                    // get the result
-
-                                    $result = mysqli_query($conn, $getQuery);
-
-                                    $total_rows = mysqli_num_rows($result);
-
-                                    // get the required number of pages
-
-                                    $total_pages = ceil($total_rows / $limit);
-
-                                    // update the active page number
-
-                                    if (!isset($_GET['page'])) {
-
-                                        $page_number = 1;
-                                    } else {
-
-                                        $page_number = $_GET['page'];
-                                    }
-
-                                    // get the initial page number
-
-                                    $initial_page = ($page_number - 1) * $limit;
-
-                                    // get data of selected rows per page    
-
-                                    $getQuery = "SELECT * FROM purchaserequest  LIMIT " . $initial_page . ',' . $limit;
-
-
-                                    // $selectQuery = "SELECT * FROM purchaserequest ";
-                                    $sql = mysqli_query($conn, $getQuery);
-                                    $count = mysqli_num_rows($sql);
-
-                                    if ($count > 0) {
-                                        while ($row = mysqli_fetch_array($sql)) {
-                                    ?>
+                        if ($count > 0) {
+                            while ($row = mysqli_fetch_array($sql)) {
+                        ?>
                                     <tr>
-                                    <tr class="bg-white border-b hover:bg-gray-50">
+                                    <tr class="bg-white border-b hover:bg-gray-50 ">
 
 
 
-                                        <!-- <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
-                                        <?php echo htmlentities($row['id']);
- $kk = $row['id']; ?>
-                                        </th> -->
-
+                                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
+                                            <?php echo htmlentities($row['id']);
+                                        $kk = $row['id']; ?>
+                                        </th>
                                         <td class="py-4 px-6">
                                             <?php echo htmlentities($row['unique_id']); ?>
+                                            <?php $uni=$row['unique_id']; ?>
                                         </td>
                                         <td class="py-4 px-6">
                                             <?php echo htmlentities($row['name']); ?>
@@ -174,12 +146,8 @@ include('./include/config.php');
                                         <td class="py-4 px-6">
                                             <?php echo htmlentities($row['equipment']); ?>
                                         </td>
-                                        <td class="py-4 px-6 whitespace-nowrap">
-
-                                            <?php
-                                                    $symbol = "₹";
-
-                                                    echo htmlentities($symbol . " " . $row['price']); ?>
+                                        <td class="py-4 px-6">
+                                            <?php echo htmlentities($row['price']); ?>
                                         </td>
                                         <td class="py-4 px-6">
                                             <?php echo htmlentities($row['qty']); ?>
@@ -236,14 +204,12 @@ include('./include/config.php');
                                                                     <button @click="modelOpen = false"
                                                                         class="text-gray-600 focus:outline-none hover:text-gray-700">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            fill="none" viewBox="0 0 24 24"
-                                                                            stroke-width="1.5" stroke="#FFFFFF"
-                                                                            class="w-6 h-6 bg-red-500 rounded-full text-xl">
+                                                                            class="w-6 h-6" fill="none"
+                                                                            viewBox="0 0 24 24" stroke="currentColor">
                                                                             <path stroke-linecap="round"
-                                                                                stroke-linejoin="round"
-                                                                                d="M6 18L18 6M6 6l12 12" />
+                                                                                stroke-linejoin="round" stroke-width="2"
+                                                                                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                                         </svg>
-
                                                                     </button>
                                                                 </div>
 
@@ -280,7 +246,7 @@ include('./include/config.php');
 
 
                                                                                     <p class="leading-relaxed">
-                                                                                        <?php echo $row['created_at']; ?>
+                                                                                        <?php echo $row['created_at'];  ?>
                                                                                     </p>
                                                                                 </div>
                                                                             </div>
@@ -310,12 +276,12 @@ include('./include/config.php');
 
 
                                                                                     <p class="leading-relaxed">
-                                                                                        <?php echo $row['status']; ?>
+                                                                                        <?php echo $row['status'];  ?>
 
 
                                                                                     </p>
                                                                                     <p class="leading-relaxed">
-                                                                                        <?php echo $row['updated_at']; ?>
+                                                                                        <?php echo $row['updated_at'];  ?>
                                                                                     </p>
 
 
@@ -343,28 +309,29 @@ include('./include/config.php');
                                                                                         P.O Created
                                                                                     </h2>
                                                                                     <?php
-                                                                                            $kk = ($row['unique_id']);
-                                                                                              echo $kk;      
-                                                                                            $rrid = $_GET["unique_id "];
-                                                                                            
+
+                                                                                $rrid = $_GET["unique_id"];
+                                                                                    $kk1 = $_GET['unique_id'];
+
+                                                                                   
+                                                                                 
 
 
+                                                                                $datasql = mysqli_query($conn, "SELECT paymentdetails.id,paymentdetails.unique_id, purchaseorder.id, paymentdetails.created_at  ,paymentdetails.updated_at,paymentdetails.status FROM paymentdetails INNER JOIN purchaseorder ON paymentdetails.unique_id=purchaseorder.unique_id where paymentdetails.unique_id='$uni';");
 
-                                                                                            //$datasql = mysqli_query($conn, "SELECT  po.id,po.created_at_po as po_created,po.updated_at_po as payment_date,po.status as status FROM purchaserequest pr join purchaseorder po on pr.id=po.id  where po.id=" . $kk . ";");
-
-                                                                                            $datasql = mysqli_query($conn, "SELECT  po.id,po.created_at_po as po_created,po.updated_at_po as payment_date,po.status as status FROM purchaserequest pr join purchaseorder po on pr.unique_id=po.unique_id  where po.unique_id=".$kk.";");
-
-                                                                                            // $datasql = mysqli_query($conn, "SELECT  po.id,po.created_at_po as po_created,po.updated_at_po as payment_date,po.status as status FROM purchaserequest pr join purchaseorder po on pr.unique_id=po.unique_id  ;");
-                                                                                            // $rw = mysqli_fetch_assoc($datasql);
+                                                                                $rw = mysqli_fetch_assoc($datasql);
 
 
-                                                                                            ?>
-
+                                                                                ?>
                                                                                     <p class="leading-relaxed">
+                                                                                        <?php echo $row['status']; ?>
 
-
-                                                                                        <?php echo $rw['po_created']; ?>
                                                                                     </p>
+                                                                                    <p class="leading-relaxed">
+                                                                                        <?php echo $row['created_at']; ?>
+
+                                                                                    </p>
+                                                                                    
 
                                                                                 </div>
                                                                             </div>
@@ -391,11 +358,11 @@ include('./include/config.php');
                                                                                         Acknowledge
                                                                                     </h2>
                                                                                     <p class="leading-relaxed">
-                                                                                        <?php echo $rw['status']; ?>
+                                                                                        <?php echo $row['status']; ?>
 
                                                                                     </p>
                                                                                     <p class="leading-relaxed">
-                                                                                        <?php echo $rw['payment_date']; ?>
+                                                                                        <?php echo $row['payment_date']; ?>
 
                                                                                     </p>
                                                                                 </div>
@@ -404,16 +371,15 @@ include('./include/config.php');
 
 
                                                                         <?php
-                                                                                 $kk = ($row['unique_id']);
-                                                                              echo $kk;      
-                                                                        $rrid = $_GET["unique_id "];
 
-                                                                                $datamysql = mysqli_query($conn, "SELECT paymentdetails.unique_id, purchaseorder.unique_id, paymentdetails.created_at,paymentdetails.updated_at,paymentdetails.status FROM paymentdetails INNER JOIN purchaseorder ON paymentdetails.unique_id=purchaseorder.unique_id  where paymentdetails.unique_id=" . $kk . "; ");
+                                                                    $rrid = $_GET["unique_id"];
 
-                                                                                $rw1 = mysqli_fetch_assoc($datamysql);
+                                                                    $datamysql = mysqli_query($conn, "SELECT paymentdetails.id,paymentdetails.unique_id, purchaseorder.id, paymentdetails.created_at,paymentdetails.updated_at,paymentdetails.status FROM paymentdetails INNER JOIN purchaseorder ON paymentdetails.unique_id=purchaseorder.unique_id where paymentdetails.unique_id='$uni';");
+
+                                                                    $rw1 = mysqli_fetch_array($datamysql);
 
 
-                                                                                ?>
+                                                                    ?>
 
                                                                         <div
                                                                             class="flex relative pb-10 sm:items-center md:w-2/3 mx-auto">
@@ -438,7 +404,7 @@ include('./include/config.php');
                                                                                     </h2>
 
                                                                                     <p class="leading-relaxed">
-                                                                                        <?php echo $rw1['created_at']; ?>
+                                                                                        <?php echo   $rw1['created_at']; ?>
 
                                                                                     </p>
                                                                                 </div>
@@ -467,14 +433,14 @@ include('./include/config.php');
                                                                                     </h2>
                                                                                     <p class="leading-relaxed">
 
-                                                                                        <?php echo $rw1['status']; ?>
+                                                                                        <?php echo   $rw1['status']; ?>
 
                                                                                     </p>
 
                                                                                     <p class="leading-relaxed">
 
 
-                                                                                        <?php echo $rw1['updated_at']; ?>
+                                                                                        <?php echo   $rw1['updated_at']; ?>
                                                                                     </p>
 
                                                                                 </div>
@@ -492,11 +458,11 @@ include('./include/config.php');
                                         </td>
                                     </tr>
                                     <?php
-                                        }
-                                    } else {
-                                        echo "No Record";
-                                    }
-                                    ?>
+                            }
+                        } else {
+                            echo "No Record";
+                        }
+                        ?>
 
                                 </tbody>
 
@@ -507,27 +473,48 @@ include('./include/config.php');
 
                                 <div class="flex justify-center">
                                     <div class="flex items-center space-x-5">
-                                        <?php
-    // show page number with link   
 
-
-
-
-
-    for ($page_number = 1; $page_number <= $total_pages; $page_number++) {
-
-        echo '<a href = "purchasesummary.php?page=' . $page_number . '">' . $page_number . ' </a>';
-    }
-
-
-
-    ?>
                                     </div>
 
                                 </div>
 
+
+
+
+
+                                <!-- <div class="flex justify-center">
+                <nav aria-label="Page navigation example">
+                    
+                    <ul class="flex list-style-none">
+                        <li class="page-item disabled"><a
+                                class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-500 pointer-events-none focus:shadow-none"
+                                href="#" tabindex="-1" aria-disabled="true">Previous</a></li>
+                        <li class="page-item"><a
+                                class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                                href="#">1</a></li>
+                        <li class="page-item active"><a
+                                class="page-link relative block py-1.5 px-3 rounded border-0 bg-blue-600 outline-none transition-all duration-300 rounded text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md"
+                                href="#">2 <span class="visually-hidden">(current)</span></a></li>
+                        <li class="page-item"><a
+                                class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                                href="#">3</a></li>
+                        <li class="page-item"><a
+                                class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                                href="#"> </a></li>
+                    </ul>
+                </nav>
+            </div> -->
+
+
+
+
                             </div>
                         </div>
+                        <script>
+                        function myFunction() {
+                          alert("hai");
+                        }
+                        </script>
                         <script type="text/javascript">
                         $(".remove").click(function() {
                             var id = $(this).parents("tr").attr("id");
@@ -549,10 +536,11 @@ include('./include/config.php');
                                     }
                                 });
                             }
-                        });
-                        </script>
+                        }); </script>
+                        ?>
 
-                        <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>
+                        <script src = "https://unpkg.com/flowbite@1.5.5/dist/flowbite.js" >
+                        </script>
                         <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js">
                         </script>
 

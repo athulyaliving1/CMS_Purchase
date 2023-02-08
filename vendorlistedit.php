@@ -200,52 +200,29 @@ $row = mysqli_fetch_array($result);
                                 <label for="department" class="block mb-2 text-sm font-medium text-gray-900 ">Department
 
                                 </label>
-                                <select name="department"  id="department"   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 " required>
+
                                 <select name="department"
                                         class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 ">
-                                        <option selected>Choose a Department</option>
-                                        <option value="IT">IT</option>
+                                     
+                                        <select name="department" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 ">
+                                    <option value="">Select Department</option>
 
-                                        <option value="MARKETING">
-                                            MARKETING
+                                    <?php $sql = mysqli_query($conn, "select statename from department");
+
+                                    while ($rw = mysqli_fetch_assoc($sql)) {
+                                    ?>
+
+                                        <option value="<?php echo $rw['statename']; ?>">
+                                            <?php echo $rw['statename']; ?>
                                         </option>
-                                        <option value="DIGITAL MARKETING">
-                                            DIGITAL MARKETING
-                                        </option>
-                                        <option value="CONSULTING">
-                                            CONSULTING
-                                        </option>
-                                        <option value="ACCOUNTS">
-                                            ACCOUNTS
-                                        </option>
-                                        <option value="ADMIN">
-                                            ADMIN
-                                        </option>
-                                        <option value="DIGITAL MARKETING">
-                                            DIGITAL MARKETING
-                                        </option>
-                                        <option value="MANAGEMENT">
-                                            MANAGEMENT
-                                        </option>
-                                        <option value="SALES">
-                                            SALES
-                                        </option>
-                                        <option value="ATHULYA CLINICAL">
-                                            ATHULYA CLINICAL
-                                        </option>
-                                        <option value="ATHULYA OPERATIONS">
-                                            ATHULYA OPERATIONS
-                                        </option>
-                                        <option value="HR">
-                                            HR
-                                        </option>
-                                        <option value=" HOME CARE">
-                                            HOME CARE
-                                        </option>
-                                        <option value="PHARMA">
-                                            PHARMA
-                                        </option>
+                                    <?php
+                                    }
+                                    ?>
+
+
                                     </select>
+                                </select>
+
                                                                   
                                 </select>
 
@@ -253,69 +230,52 @@ $row = mysqli_fetch_array($result);
 
 
                             </div>
-                            <div class='mb-6'>
+                           <div class="grid gap-6 mb-6 lg:grid-cols-3 rounded-2xl">
 
-                                <label for="state" class="block mb-2 text-sm font-medium text-gray-900 ">State
+                            <div>
+                                <div class='mb-6'>
+                                    <label for="state" class="block mb-2 text-sm font-medium text-gray-900 ">State
+                                    </label>
 
-                                </label>
-                                <select name="state" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 " required>
-                                    <option selected>Choose a State</option>
-                                                          
-                                    <option value="Tamil Nadu" <?php if ($row['state'] == 'Tamil Nadu') echo ' selected="selected"'; ?> >Tamil Nadu</option>
-                                    <option value="Karnataka" <?php if ($row['state'] == 'karnataka') echo ' selected="selected"'; ?> >Karnataka</option>
-                                    <option value="Kerala" <?php if ($row['state'] == 'Kerala') echo ' selected="selected"'; ?> >Kerala</option>  
+                                    <select name="state"   type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 " id="department" onChange="getCat(this.value);">
+                                        <option value="">Select Category</option>
+                                        <?php
 
-
+                                        $dbcon = mysqli_connect("localhost", "root", "", "athul9z1_cms");
+                                        $sql = mysqli_query($dbcon, "select distinct branch_state from master_branches");
+                                        while ($rw = mysqli_fetch_assoc($sql)) {
+                                        ?>
+                                            <option value="<?php echo htmlentities($rw['branch_state']); ?>">
+                                                <?php echo htmlentities($rw['branch_state']); ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
                             </div>
 
 
-
                             <div class='mb-6'>
+                                <label for="location" class="block mb-2 text-sm font-medium text-gray-900 ">Location</label>
 
-                                <label for="location" class="block mb-2 text-sm font-medium text-gray-900 ">Location
-
-                                </label>
-                                <select name="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 ">
-                                    <option selected>Choose a Location</option>
-                                    <option value="Chennai">
-                                        Chennai</option>
-                                    <option value="Bangalore">
-                                        Bangalore</option>
-                                    <option value="Hyderabad">
-                                        Hyderabad</option>
-
-                                    <option value="Cochin">
-                                        Cochin</option>
-
-
-
+                                <select name="location" id="branch_city" onChange="getCat1(this.value);" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5">
+                                    <option value="">Select Subcategory</option>
                                 </select>
 
 
+
                             </div>
                             <div class='mb-6'>
-
                                 <label for="place" class="block mb-2 text-sm font-medium text-gray-900 ">Place
-
                                 </label>
-                                <select name="place" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 ">
-                                    <option name="place" selected>Choose a Place</option>
-                                    <option value="Arumbakkam">
-                                        Arumbakkam</option>
-                                    <option value="Perungudi">
-                                        Perungudi</option>
-                                    <option value="Neelankarai">
-                                        Neelankarai</option>
 
-                                    <option value="Pallavaram">
-                                        Pallavaram</option>
-
-
-
+                                <select name="place" id="branch_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5">
+                                    <option value="">Select Subcategory</option>
                                 </select>
 
-
                             </div>
+                        </div>
+
 
 
 

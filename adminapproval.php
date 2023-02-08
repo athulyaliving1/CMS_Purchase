@@ -77,7 +77,7 @@ if (isset($_POST['rejected'])) {
            
            ?>
 
-            <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+            <div class="h-full ml-14 mt-20 mb-10 md:ml-64">
 
 
                 <!-- Client Table -->
@@ -193,7 +193,9 @@ if (isset($_POST['rejected'])) {
                                             <?php echo htmlentities($row['equipment']); ?>
                                         </td>
                                         <td class="py-4 px-6">
-                                            <?php echo htmlentities($row['price']); ?>
+                                            <?php   
+                                               $symbol = "₹"; 
+                                            echo htmlentities($symbol." ".$row['price']); ?>
                                         </td>
                                         <td class="py-4 px-6">
                                             <?php echo htmlentities($row['qty']); ?>

@@ -92,7 +92,7 @@ if (isset($_GET['del'])) {
 
             ?>
 
-            <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+            <div class="h-full ml-14 mt-20 mb-10 md:ml-64">
 
                 <!-- Client Table -->
                 <div class="mt-4 mx-4">

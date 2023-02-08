@@ -1,42 +1,46 @@
   <!-- Header -->
-  <div class="fixed w-full flex items-center justify-between h-14 text-white z-10">
-      <div class="flex items-center justify-start md:justify-center pl-3 w-14 md:w-64 h-14 bg-sky-900  border-none">
-          <img class="w-7 h-7 md:w-10 md:h-10 mr-2 rounded-md overflow-hidden"
-              src="https://therminic2018.eu/wp-content/uploads/2018/07/dummy-avatar.jpg" />
-          <span class="hidden md:block">ADMIN</span>
-      </div>
-      <div class="flex justify-between items-center h-14 bg-sky-900  header-right">
-          <div class="bg-white rounded flex items-center w-full max-w-xl mr-4 p-2 shadow-sm border border-gray-200">
-              <button class="outline-none focus:outline-none">
-                  <svg class="w-5 text-gray-600 h-5 cursor-pointer" fill="none" stroke-linecap="round"
-                      stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
-                      <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                  </svg>
-              </button>
-              <input type="search" name="" id="" placeholder="Search"
-                  class="w-full pl-3 text-sm text-black outline-none focus:outline-none bg-transparent" />
-          </div>
-          <ul class="flex items-center">
+  <nav class="fixed z-50 w-full border-b border-gray-200 bg-sky-900 ">
+    <div class="px-3 py-3 lg:px-5 lg:pl-3">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center justify-start">
+                <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar" class="p-2 mr-2 text-gray-600 rounded cursor-pointer lg:hidden hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100">
+                    <svg id="toggleSidebarMobileHamburger" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg id="toggleSidebarMobileClose" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
 
-              <li>
-                  <div class="block w-px h-6 mx-3 bg-gray-400 "></div>
-              </li>
-              <li>
-                  <a href="logout.php" class="flex items-center mr-4 hover:text-blue-100">
-                      <span class="inline-flex mr-1">
-                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
-                              </path>
-                          </svg>
-                      </span>
-                      Logout
-                  </a>
-              </li>
-          </ul>
-      </div>
-  </div>
+                <div>
+                    <img class="bg-white rounded-lg " src="https://res.cloudinary.com/drywqd3hf/image/upload/v1675425966/care_1_vroxw3.png" alt="logo" />
+                </div>
+            </div>
+            <div class="flex items-center ">
+                <p class="text-xl font-semibold text-white ">
+                    Purchase Management
+                </p>
+            </div>
+
+            <div class="flex items-center space-x-5">
+                <button id="toggleSidebarMobileSearch" type="button" class="p-2 text-gray-500 rounded-lg lg:hidden hover:text-gray-900 hover:bg-gray-100">
+
+                </button>
+
+                <a href="logout.php" class="hidden sm:inline-flex ml-5 text-white bg-pink-500 hover:bg-pink-600 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mr-3">
+                    <svg class="w-8 h-8 mr-2 -ml-1 text-white svg-inline--fa fa-gem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M14 20H6C4.89543 20 4 19.1046 4 18L4 6C4 4.89543 4.89543 4 6 4H14M10 12H21M21 12L18 15M21 12L18 9" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                    </svg>
+                    Log Out
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
   <!-- ./Header -->
 
   <!-- Sidebar -->
