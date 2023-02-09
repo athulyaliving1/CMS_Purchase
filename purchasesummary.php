@@ -11,12 +11,6 @@ include('./include/config.php');
 //     echo "Connection successful";
 // }
 
-
-
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,9 +111,6 @@ include('./include/config.php');
                         ?>
                                     <tr>
                                     <tr class="bg-white border-b hover:bg-gray-50 ">
-
-
-
                                         <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
                                             <?php echo htmlentities($row['id']);
                                         $kk = $row['id']; ?>
@@ -204,11 +195,12 @@ include('./include/config.php');
                                                                     <button @click="modelOpen = false"
                                                                         class="text-gray-600 focus:outline-none hover:text-gray-700">
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            class="w-6 h-6" fill="none"
-                                                                            viewBox="0 0 24 24" stroke="currentColor">
+                                                                            fill="none" viewBox="0 0 24 24"
+                                                                            stroke-width="1.5" stroke="#FFFFFF"
+                                                                            class="w-6 h-6 bg-red-500 rounded-full text-xl">
                                                                             <path stroke-linecap="round"
-                                                                                stroke-linejoin="round" stroke-width="2"
-                                                                                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                                                stroke-linejoin="round"
+                                                                                d="M6 18L18 6M6 6l12 12" />
                                                                         </svg>
                                                                     </button>
                                                                 </div>
@@ -311,27 +303,23 @@ include('./include/config.php');
                                                                                     <?php
 
                                                                                 $rrid = $_GET["unique_id"];
-                                                                                    $kk1 = $_GET['unique_id'];
-
-                                                                                   
-                                                                                 
-
-
-                                                                                $datasql = mysqli_query($conn, "SELECT paymentdetails.id,paymentdetails.unique_id, purchaseorder.id, paymentdetails.created_at  ,paymentdetails.updated_at,paymentdetails.status FROM paymentdetails INNER JOIN purchaseorder ON paymentdetails.unique_id=purchaseorder.unique_id where paymentdetails.unique_id='$uni';");
+                                                                                                                                                                   
+                                                                
+                                                                                $datasql = mysqli_query($conn, "SELECT purchaseorder.unique_id, purchaseorder.created_at_po, purchaseorder.updated_at_po,purchaseorder.status
+                                                                                FROM purchaserequest
+                                                                                  JOIN purchaseorder
+                                                                                    ON purchaseorder.unique_id = purchaserequest.unique_id  where purchaseorder.unique_id='$uni';");
 
                                                                                 $rw = mysqli_fetch_assoc($datasql);
 
 
                                                                                 ?>
+
                                                                                     <p class="leading-relaxed">
-                                                                                        <?php echo $row['status']; ?>
+                                                                                        <?php echo $rw['created_at_po']; ?>
 
                                                                                     </p>
-                                                                                    <p class="leading-relaxed">
-                                                                                        <?php echo $row['created_at']; ?>
 
-                                                                                    </p>
-                                                                                    
 
                                                                                 </div>
                                                                             </div>
@@ -358,11 +346,11 @@ include('./include/config.php');
                                                                                         Acknowledge
                                                                                     </h2>
                                                                                     <p class="leading-relaxed">
-                                                                                        <?php echo $row['status']; ?>
+                                                                                        <?php echo $rw['status']; ?>
 
                                                                                     </p>
                                                                                     <p class="leading-relaxed">
-                                                                                        <?php echo $row['payment_date']; ?>
+                                                                                        <?php echo $rw['updated_at_po']; ?>
 
                                                                                     </p>
                                                                                 </div>
@@ -512,7 +500,7 @@ include('./include/config.php');
                         </div>
                         <script>
                         function myFunction() {
-                          alert("hai");
+                            alert("hai");
                         }
                         </script>
                         <script type="text/javascript">
@@ -536,10 +524,11 @@ include('./include/config.php');
                                     }
                                 });
                             }
-                        }); </script>
-                        ?>
+                        });
+                        </script>
 
-                        <script src = "https://unpkg.com/flowbite@1.5.5/dist/flowbite.js" >
+
+                        <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js">
                         </script>
                         <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js">
                         </script>
@@ -548,9 +537,3 @@ include('./include/config.php');
 </body>
 
 </html>
-
-
-
-
-
-<!-- $conn = mysqli_connect('localhost', 'athul9z1_cmsuser', 'Health@123', 'athul9z1_cms'); -->
