@@ -27,17 +27,19 @@ if (isset($_POST['submit'])) {
     $ifsccode = $_POST['ifsccode'];
     $address = $_POST['address'];
     $department = $_POST['department'];
+    $departmentcode = $_POST['departmentcode'];
     $state = $_POST['state'];
     $location = $_POST['location'];
     $place = $_POST['place'];
+    $branchcode = $_POST['branchcode'];
 
 
     //$reqfile = $_FILES["reqfile"]["name"];
 
     //move_uploaded_file($_FILES["reqfile"]["tmp_name"], "reqdocs/" . $_FILES["reqfile"]["name"]);
-    $sql = "INSERT INTO vendorlist (`vendorname`,`contactperson`,`gstnumber`,`pannumber`,`email`,`mobilenumber`,`accountnumber`, `ifsccode`,`address` , `department`,`state`, `location` , `place`) VALUES 
+    $sql = "INSERT INTO vendorlist (`vendorname`,`contactperson`,`gstnumber`,`pannumber`,`email`,`mobilenumber`,`accountnumber`, `ifsccode`,`address` , `department`,`departmentcode`,`state`, `location` , `place`,`branchcode`) VALUES 
 
-        ( '$vendorname','$contactperson','$gstnumber','$pannumber','$email', '$mobilenumber',  '$accountnumber','$ifsccode','$address','$department','$state', '$location','$place')";
+        ('$vendorname','$contactperson','$gstnumber','$pannumber','$email', '$mobilenumber',  '$accountnumber','$ifsccode','$address','$department','$departmentcode','$state', '$location','$place','$branchcode')";
 
     // echo $sql;
 
@@ -140,10 +142,10 @@ if (isset($_POST['submit'])) {
                 data: 'branch_city=' + val1,
                 success: function(data1) {
                     $("#branch_name").html(data1);
-                    //console.log("d");  
+                    console.log("data");
                 }
             });
-            console.log("this");
+
         }
     </script>
 
@@ -159,6 +161,22 @@ if (isset($_POST['submit'])) {
                 success: function(data) {
                     console.log(data);
                     $("#state_id").html(data);
+
+                }
+            });
+        }
+    </script>
+    <script>
+        function getBrncode(val2) {
+            // alert('val');
+
+            $.ajax({
+                type: "POST",
+                url: "branchcodesub.php",
+                data: 'branch_name=' + val2,
+                success: function(data2) {
+                    console.log(data2);
+                    $("#branch_code").html(data2);
 
                 }
             });
@@ -254,118 +272,107 @@ if (isset($_POST['submit'])) {
                                     </label>
                                     <input type="text" id="ifsccode" name="ifsccode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 " placeholder="Enter IFSC Code" required>
                                 </div>
+                                <div class="mb-6">
+                                    <label for="bank" class="block mb-2 text-sm font-medium text-gray-900 ">Address
+                                    </label>
+                                    <input type="text" id="address" name="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 " placeholder="Enter Address " required>
+                                </div>
+                            </div>
+                            <div class=" grid gap-6 mb-6 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3  rounded-2xl">
                                 <div class='mb-6'>
+                                    <label for="department" class="block mb-2 text-sm font-medium text-gray-900 ">Department
+                                    </label>
 
-                                    
+                                    <select type="text" name="department" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5" id="department" onChange="getDep(this.value);">
+                                        <option value="">Select Category</option>
+                                        <?php
 
+                                        $dbcon = mysqli_connect("localhost", "root", "", "test1");
+                                        $sql = mysqli_query($dbcon, "select stateName,state_id from state");
+                                        while ($rw = mysqli_fetch_assoc($sql)) {
+                                        ?>
+                                            <option value="<?php echo htmlentities($rw['stateName']); ?>">
+                                                <?php echo htmlentities($rw['stateName']); ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class='mb-6'>
+                                    <label for="departmentcode" class="block mb-2 text-sm font-medium text-gray-900 ">Department Code
+                                    </label>
                                     <div>
-
-                                        <label for="department" class="block mb-2 text-sm font-medium text-gray-900 ">Department
+                                        <select name="departmentcode" id="state_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5">
+                                            <option value="">Select Subcategory</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class='mb-6'>
+                                        <label for="state" class="block mb-2 text-sm font-medium text-gray-900 ">State
                                         </label>
 
-                                        <select type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5" id="department" onChange="getDep(this.value);">
+                                        <select type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 " id="state" name="state" onChange="getCat(this.value);">
                                             <option value="">Select Category</option>
                                             <?php
 
-                                            $dbcon = mysqli_connect("localhost", "root", "", "test1");
-                                            $sql = mysqli_query($dbcon, "select stateName,state_id from state");
+                                            $conn = mysqli_connect("localhost", "root", "", "athul9z1_cms");
+                                            $sql = mysqli_query($conn, "select distinct branch_state from master_branches");
                                             while ($rw = mysqli_fetch_assoc($sql)) {
                                             ?>
-                                                <option value="<?php echo htmlentities($rw['stateName']); ?>">
-                                                    <?php echo htmlentities($rw['stateName']); ?></option>
+                                                <option value="<?php echo htmlentities($rw['branch_state']); ?>">
+                                                    <?php echo htmlentities($rw['branch_state']); ?></option>
                                             <?php
                                             }
                                             ?>
                                         </select>
                                     </div>
+                                </div>
+                            </div>
 
-                                    <div class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5">
-                                        <select name="department" id="state_id" class="form-control">
-                                            <option value="">Select Subcategory</option>
-                                        </select>
-                                    </div>
 
+
+
+                            <div class="grid gap-6 mb-6 lg:grid-cols-3 rounded-2xl">
+                                <div class='mb-6'>
+                                    <label for="location" class="block mb-2 text-sm font-medium text-gray-900 ">Location</label>
+
+                                    <select name="location" id="branch_city" onChange="getCat1(this.value);" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5">
+                                        <option value="">Select Subcategory</option>
+                                    </select>
                                 </div>
 
+                                <div class='mb-6'>
+                                    <label for="place" class="block mb-2 text-sm font-medium text-gray-900 ">Place
+                                    </label>
 
+                                    <select name="place" id="branch_name" onChange="getBrncode(this.value);" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5">
+                                        <option value="">Select Subcategory</option>
+                                    </select>
 
+                                </div>
+                                <div class='mb-6'>
+                                    <label for="branchcode" class="block mb-2 text-sm font-medium text-gray-900 ">Branch
+                                        Code
+                                    </label>
 
+                                    <select name="branchcode" id="branch_code" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5">
+                                        <option value="">Branch Code</option>
+                                    </select>
+
+                                </div>
                             </div>
                     </div>
-
-
-
-                    <div class="grid gap-6 mb-6 lg:grid-cols-3 rounded-2xl">
-
-                        <div>
-                            <div class='mb-6'>
-                                <label for="state" class="block mb-2 text-sm font-medium text-gray-900 ">State
-                                </label>
-
-                                <select type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 " id="state" name="state" onChange="getCat(this.value);">
-                                    <option value="">Select Category</option>
-                                    <?php
-
-                                    $conn = mysqli_connect("localhost", "root", "", "athul9z1_cms");
-                                    $sql = mysqli_query($conn, "select distinct branch_state from master_branches");
-                                    while ($rw = mysqli_fetch_assoc($sql)) {
-                                    ?>
-                                        <option value="<?php echo htmlentities($rw['branch_state']); ?>">
-                                            <?php echo htmlentities($rw['branch_state']); ?></option>
-                                    <?php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-
-
-                        <div class='mb-6'>
-                            <label for="location" class="block mb-2 text-sm font-medium text-gray-900 ">Location</label>
-
-                            <select name="location" id="branch_city" onChange="getCat1(this.value);" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5">
-                                <option value="">Select Subcategory</option>
-                            </select>
-
-
-
-                        </div>
-                        <div class='mb-6'>
-                            <label for="place" class="block mb-2 text-sm font-medium text-gray-900 ">Place
-                            </label>
-
-                            <select name="place" id="branch_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5">
-                                <option value="">Select Subcategory</option>
-                            </select>
-
-                        </div>
-                    </div>
-
-                    <div class="grid gap-6 mb-6 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 rounded-2xl ">
-                        <div class="mb-6">
-                            <label for="bank" class="block mb-2 text-sm font-medium text-gray-900 ">Address
-
-                            </label>
-                            <input type="text" id="address" name="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5 " placeholder="Enter Address " required>
-                        </div>
-                    </div>
-
-
                     <div class="grid gap-4 place-content-center">
                         <button type="submit" class="text-white bg-pink-500 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center " name="submit">Save</button>
-
                     </div>
-
-
-
-
                     </form>
-
-
                 </div>
-            </div>
 
+            </div>
         </div>
+
+    </div>
     </div>
     </div>
 

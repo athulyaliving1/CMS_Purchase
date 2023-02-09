@@ -21,6 +21,8 @@ if (isset($_POST['received'])) {
 
 else{
 
+    die("Error: not exist.");
+
 }
 
 ?>
